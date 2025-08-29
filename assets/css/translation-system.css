@@ -1,0 +1,549 @@
+/**
+ * PASSIONE CALABRIA - TRANSLATION SYSTEM CSS
+ * 
+ * Styles for the translation system including:
+ * - Language selectors
+ * - Loading states
+ * - Progress indicators
+ * - Error states
+ * - Accessibility features
+ * 
+ * @author Passione Calabria Team
+ * @version 2.0
+ */
+
+/* === BASE TRANSLATION CLASSES === */
+
+/* Translatable content base style */
+.translatable {
+    transition: all 0.3s ease;
+}
+
+/* Body states for global translation status */
+body[data-language="it"] .translation-only:not([data-lang="it"]) {
+    display: none;
+}
+
+body[data-language="en"] .translation-only:not([data-lang="en"]) {
+    display: none;
+}
+
+body[data-language="de"] .translation-only:not([data-lang="de"]) {
+    display: none;
+}
+
+body[data-language="es"] .translation-only:not([data-lang="es"]) {
+    display: none;
+}
+
+body[data-language="fr"] .translation-only:not([data-lang="fr"]) {
+    display: none;
+}
+
+/* === LANGUAGE SELECTORS === */
+
+/* Language selector base styles */
+.language-btn,
+[data-lang] {
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.language-btn:hover,
+[data-lang]:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
+}
+
+/* Active language state */
+.language-btn.active,
+[data-lang].active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.language-btn.active::after,
+[data-lang].active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: #fbbf24; /* yellow-400 */
+    border-radius: 1px;
+}
+
+/* Mobile language selectors */
+@media (max-width: 1023px) {
+    #mobile-menu .language-btn {
+        padding: 8px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    #mobile-menu .language-btn.active {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(251, 191, 36, 0.5);
+    }
+}
+
+/* === TRANSLATION STATES === */
+
+/* Loading state */
+.translation-loading {
+    position: relative;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.translation-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(59, 130, 246, 0.1) 50%,
+        transparent 100%
+    );
+    animation: translationSkeleton 1.5s ease-in-out infinite;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+@keyframes translationSkeleton {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Error state */
+.translation-error {
+    background-color: #fef2f2; /* red-50 */
+    border: 1px solid #fecaca; /* red-200 */
+    border-radius: 4px;
+    padding: 2px 4px;
+    position: relative;
+}
+
+.translation-error::before {
+    content: '⚠️';
+    font-size: 12px;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #ef4444; /* red-500 */
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+}
+
+/* Successfully translated state */
+.translated {
+    position: relative;
+}
+
+.translated::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #10b981; /* green-500 */
+    border-radius: 50%;
+    opacity: 0;
+    animation: translateSuccess 0.6s ease-out;
+}
+
+@keyframes translateSuccess {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+/* === PROGRESS BAR === */
+
+.translation-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    padding: 16px;
+    display: none;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.progress-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b);
+    background-size: 200% 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.progress-text {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* === BODY STATES === */
+
+/* Global loading state */
+body.translating {
+    cursor: progress;
+}
+
+body.translating .language-btn {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+@media (max-width: 640px) {
+    .translation-progress-bar {
+        padding: 12px;
+    }
+    
+    .progress-text {
+        font-size: 12px;
+    }
+    
+    .language-btn {
+        padding: 6px 8px;
+    }
+    
+    .language-btn .text-xs {
+        display: none;
+    }
+}
+
+/* === ACCESSIBILITY === */
+
+/* Focus states for keyboard navigation */
+.language-btn:focus,
+[data-lang]:focus {
+    outline: 2px solid #fbbf24; /* yellow-400 */
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .translatable,
+    .language-btn,
+    [data-lang],
+    .translation-loading::after,
+    .progress-fill,
+    .translated::before {
+        transition: none;
+        animation: none;
+    }
+    
+    .translation-progress-bar {
+        animation: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .translation-error {
+        background-color: #ffffff;
+        border: 2px solid #dc2626; /* red-600 */
+        color: #dc2626;
+    }
+    
+    .language-btn.active {
+        background-color: #1f2937; /* gray-800 */
+        color: #fbbf24; /* yellow-400 */
+        border: 2px solid #fbbf24;
+    }
+    
+    .progress-fill {
+        background: #1f2937; /* gray-800 */
+        animation: none;
+    }
+}
+
+/* === DARK MODE SUPPORT === */
+@media (prefers-color-scheme: dark) {
+    .translation-error {
+        background-color: #7f1d1d; /* red-900 */
+        border-color: #dc2626; /* red-600 */
+        color: #fecaca; /* red-200 */
+    }
+    
+    .translation-loading::after {
+        background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(147, 197, 253, 0.2) 50%,
+            transparent 100%
+        );
+    }
+}
+
+/* === PRINT STYLES === */
+@media print {
+    .language-btn,
+    [data-lang],
+    .translation-progress-bar {
+        display: none !important;
+    }
+    
+    .translation-loading::after,
+    .translated::before,
+    .translation-error::before {
+        display: none;
+    }
+    
+    .translation-error {
+        background: none;
+        border: none;
+    }
+}
+
+/* === NOTIFICATION STYLES === */
+
+.translation-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 10000;
+    transform: translateX(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.translation-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.translation-notification.success {
+    background: #059669; /* green-600 */
+}
+
+.translation-notification.error {
+    background: #dc2626; /* red-600 */
+}
+
+.translation-notification.info {
+    background: #2563eb; /* blue-600 */
+}
+
+/* === LANGUAGE INDICATOR === */
+
+.language-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    z-index: 9998;
+    display: none;
+}
+
+body:not([data-language="it"]) .language-indicator {
+    display: block;
+}
+
+.language-indicator::before {
+    content: attr(data-language);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* === ANIMATIONS FOR SMOOTH TRANSITIONS === */
+
+.fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* === TOOLTIPS FOR LANGUAGE SELECTORS === */
+
+.language-btn[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* === BATCH TRANSLATION INDICATORS === */
+
+.batch-translating::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #3b82f6; /* blue-500 */
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* === CACHE STATUS INDICATOR === */
+
+.cache-hit::after {
+    content: '💾';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 10px;
+    opacity: 0;
+    animation: cacheHit 1s ease-out;
+}
+
+@keyframes cacheHit {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+/* === DEBUGGING STYLES (only when debug=true) === */
+
+.translation-debug .translatable {
+    outline: 1px dashed #3b82f6;
+    outline-offset: 2px;
+}
+
+.translation-debug .translatable::before {
+    content: 'T';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background: #3b82f6;
+    color: white;
+    font-size: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}

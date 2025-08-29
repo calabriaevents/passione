@@ -1,0 +1,68 @@
+[
+  {
+    "id": "clone_repo",
+    "task": "Clonare il repository GitHub calabriaevents/passione.git",
+    "status": "completed",
+    "priority": "high"
+  },
+  {
+    "id": "analyze_structure",
+    "task": "Analizzare la struttura del progetto e identificare i sistemi di traduzione",
+    "status": "completed",
+    "priority": "high"
+  },
+  {
+    "id": "check_translations_admin",
+    "task": "Controllare le traduzioni lato admin - PROBLEMA CRITICO TROVATO: articoli.php e pagine-statiche.php NON usano traduzione preventiva",
+    "status": "completed",
+    "priority": "high"
+  },
+  {
+    "id": "fix_admin_translations",
+    "task": "COMPLETATO: Integrare PreventiveTranslationService in articoli.php e pagine-statiche.php - Ora le traduzioni automatiche sono attive!",
+    "status": "completed",
+    "priority": "high"
+  },
+  {
+    "id": "check_translations_user",
+    "task": "COMPLETATO: Identificati problemi critici in articolo.php, categoria.php, categorie.php - Tutti corretti convertendo dal sistema client-side al sistema preventivo server-side",
+    "status": "completed",
+    "priority": "high"
+  },
+  {
+    "id": "fix_user_page_translations",
+    "task": "COMPLETATO: Convertiti TUTTI i file dal sistema client-side al server-side: articolo.php, categoria.php, categorie.php, province.php, 404.php, citta-dettaglio.php, mappa.php, collabora.php, iscrivi-attivita.php, citta.php. Conversione sistema traduzioni terminata!",
+    "status": "completed",
+    "priority": "high"
+  },
+  {
+    "id": "identify_test_files",
+    "task": "Identificare tutti i file di test nel progetto",
+    "status": "completed",
+    "priority": "medium"
+  },
+  {
+    "id": "remove_test_files",
+    "task": "Eliminare tutti i file di test identificati: index-simple-test.php, test-db.php, test-methods.php, test_debug.php",
+    "status": "completed",
+    "priority": "medium"
+  },
+  {
+    "id": "test_text_field_translations",
+    "task": "\u2705 COMPLETATO: Verificate entrambe le admin panel - articoli.php e pagine-statiche.php hanno integrazione PreventiveTranslationService funzionante per create/update con try/catch error handling.",
+    "status": "completed",
+    "priority": "high"
+  },
+  {
+    "id": "check_all_pages_functionality",
+    "task": "\u2705 COMPLETATO: Controllate tutte le pagine principali. Trovati e risolti problemi in page.php, ricerca.php, provincia.php. Sistema traduzioni ora coerente in tutto il sito!",
+    "status": "completed",
+    "priority": "high"
+  },
+  {
+    "id": "final_verification",
+    "task": "\u2705 COMPLETATO: Lavoro minuzioso terminato con successo. Sistema di traduzione ora completamente funzionante e coerente su tutto il sito Passione Calabria!",
+    "status": "completed",
+    "priority": "high"
+  }
+]
